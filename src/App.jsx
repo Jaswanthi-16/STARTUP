@@ -6,13 +6,10 @@ import AppRoutes from './routes';
 // Main App component
 function App() {
   return (
-    // Wrap the entire application in BrowserRouter to enable routing
     <BrowserRouter>
-      <div className="flex min-h-screen bg-gray-50 font-sans text-gray-900">
-        {/* Render Sidebar on the left */}
+      <div className="flex min-h-screen bg-slate-50 dark:bg-slate-900 font-sans text-slate-900 dark:text-white transition-colors duration-200">
         <Sidebar />
-        {/* Main content container where routes are rendered, offset by sidebar width */}
-        <main className="flex-1 ml-64 p-8">
+        <main className="flex-1 w-full pt-16 pb-16 md:pt-0 md:pb-0 md:ml-20 lg:ml-64 p-4 md:p-6 lg:p-8 transition-all duration-300">
           <AppRoutes />
         </main>
       </div>

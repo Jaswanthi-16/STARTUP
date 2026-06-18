@@ -60,65 +60,65 @@ export default function LeadForm({ initialData, onSubmit, onCancel }) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-slate-700">Name *</label>
+        <label htmlFor="name" className="block text-sm font-medium text-slate-700 dark:text-slate-200 dark:text-slate-300">Name *</label>
         <input
           type="text"
           id="name"
           name="name"
           value={formData.name}
           onChange={handleChange}
-          className={`mt-1 block w-full rounded-md border ${errors.name ? 'border-red-300 focus:border-red-500 focus:ring-red-500' : 'border-slate-300 focus:border-blue-500 focus:ring-blue-500'} px-3 py-2 text-sm`}
+          className={`mt-1 block w-full rounded-md border ${errors.name ? 'border-red-300 focus:border-red-500 focus:ring-red-500 dark:border-red-500/50 dark:focus:border-red-400 dark:focus:ring-red-400' : 'border-slate-300 dark:border-slate-600 focus:border-blue-500 focus:ring-blue-500 dark:border-slate-700 dark:focus:border-blue-500 dark:focus:ring-blue-500'} px-3 py-2 text-sm dark:bg-slate-800 dark:text-white transition-colors duration-200`}
         />
         {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
       </div>
 
       <div>
-        <label htmlFor="company" className="block text-sm font-medium text-slate-700">Company *</label>
+        <label htmlFor="company" className="block text-sm font-medium text-slate-700 dark:text-slate-200 dark:text-slate-300">Company *</label>
         <input
           type="text"
           id="company"
           name="company"
           value={formData.company}
           onChange={handleChange}
-          className={`mt-1 block w-full rounded-md border ${errors.company ? 'border-red-300 focus:border-red-500 focus:ring-red-500' : 'border-slate-300 focus:border-blue-500 focus:ring-blue-500'} px-3 py-2 text-sm`}
+          className={`mt-1 block w-full rounded-md border ${errors.company ? 'border-red-300 focus:border-red-500 focus:ring-red-500 dark:border-red-500/50 dark:focus:border-red-400 dark:focus:ring-red-400' : 'border-slate-300 dark:border-slate-600 focus:border-blue-500 focus:ring-blue-500 dark:border-slate-700 dark:focus:border-blue-500 dark:focus:ring-blue-500'} px-3 py-2 text-sm dark:bg-slate-800 dark:text-white transition-colors duration-200`}
         />
         {errors.company && <p className="mt-1 text-sm text-red-600">{errors.company}</p>}
       </div>
 
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-slate-700">Email *</label>
+        <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-200 dark:text-slate-300">Email *</label>
         <input
           type="email"
           id="email"
           name="email"
           value={formData.email}
           onChange={handleChange}
-          className={`mt-1 block w-full rounded-md border ${errors.email ? 'border-red-300 focus:border-red-500 focus:ring-red-500' : 'border-slate-300 focus:border-blue-500 focus:ring-blue-500'} px-3 py-2 text-sm`}
+          className={`mt-1 block w-full rounded-md border ${errors.email ? 'border-red-300 focus:border-red-500 focus:ring-red-500 dark:border-red-500/50 dark:focus:border-red-400 dark:focus:ring-red-400' : 'border-slate-300 dark:border-slate-600 focus:border-blue-500 focus:ring-blue-500 dark:border-slate-700 dark:focus:border-blue-500 dark:focus:ring-blue-500'} px-3 py-2 text-sm dark:bg-slate-800 dark:text-white transition-colors duration-200`}
         />
         {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
       </div>
 
       <div>
-        <label htmlFor="phone" className="block text-sm font-medium text-slate-700">Phone</label>
+        <label htmlFor="phone" className="block text-sm font-medium text-slate-700 dark:text-slate-200 dark:text-slate-300">Phone</label>
         <input
           type="tel"
           id="phone"
           name="phone"
           value={formData.phone}
           onChange={handleChange}
-          className="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-blue-500"
+          className="mt-1 block w-full rounded-md border border-slate-300 dark:border-slate-600 dark:border-slate-700 px-3 py-2 text-sm focus:border-blue-500 focus:ring-blue-500 dark:focus:border-blue-500 dark:focus:ring-blue-500 dark:bg-slate-800 dark:text-white transition-colors duration-200"
         />
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="status" className="block text-sm font-medium text-slate-700">Status</label>
+          <label htmlFor="status" className="block text-sm font-medium text-slate-700 dark:text-slate-200 dark:text-slate-300">Status</label>
           <select
             id="status"
             name="status"
             value={formData.status}
             onChange={handleChange}
-            className="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-blue-500 bg-white"
+            className="mt-1 block w-full rounded-md border border-slate-300 dark:border-slate-600 dark:border-slate-700 px-3 py-2 text-sm focus:border-blue-500 focus:ring-blue-500 dark:focus:border-blue-500 dark:focus:ring-blue-500 bg-white dark:bg-slate-800 dark:bg-slate-800 dark:text-white transition-colors duration-200"
           >
             {STATUS_OPTIONS.map(status => (
               <option key={status} value={status}>{status}</option>
@@ -127,13 +127,13 @@ export default function LeadForm({ initialData, onSubmit, onCancel }) {
         </div>
 
         <div>
-          <label htmlFor="source" className="block text-sm font-medium text-slate-700">Source</label>
+          <label htmlFor="source" className="block text-sm font-medium text-slate-700 dark:text-slate-200 dark:text-slate-300">Source</label>
           <select
             id="source"
             name="source"
             value={formData.source}
             onChange={handleChange}
-            className="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-blue-500 bg-white"
+            className="mt-1 block w-full rounded-md border border-slate-300 dark:border-slate-600 dark:border-slate-700 px-3 py-2 text-sm focus:border-blue-500 focus:ring-blue-500 dark:focus:border-blue-500 dark:focus:ring-blue-500 bg-white dark:bg-slate-800 dark:bg-slate-800 dark:text-white transition-colors duration-200"
           >
             {SOURCE_OPTIONS.map(source => (
               <option key={source} value={source}>{source}</option>
@@ -142,17 +142,17 @@ export default function LeadForm({ initialData, onSubmit, onCancel }) {
         </div>
       </div>
 
-      <div className="mt-6 flex justify-end gap-3 pt-4 border-t border-slate-100">
+      <div className="mt-6 flex justify-end gap-3 pt-4 border-t border-slate-100 dark:border-slate-800 dark:border-slate-800">
         <button
           type="button"
           onClick={onCancel}
-          className="rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          className="rounded-md border border-slate-300 dark:border-slate-600 dark:border-slate-700 bg-white dark:bg-slate-800 dark:bg-slate-800 px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 dark:text-slate-300 hover:bg-slate-50 dark:bg-slate-900 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900 transition-colors duration-200"
         >
           Cancel
         </button>
         <button
           type="submit"
-          className="rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          className="rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900 transition-colors duration-200"
         >
           {initialData ? 'Update Lead' : 'Create Lead'}
         </button>

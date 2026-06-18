@@ -13,11 +13,11 @@ import StatusBadge from './StatusBadge';
  */
 export default function LeadCard({ lead, onEdit, onDelete }) {
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-5 flex flex-col h-full transition-shadow hover:shadow-md">
+    <div className="bg-white dark:bg-slate-800 dark:bg-slate-900 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 dark:border-slate-800/80 p-5 flex flex-col h-full transition-all duration-200 hover:shadow-md">
       <div className="flex justify-between items-start mb-4">
         <div>
-          <h3 className="text-lg font-semibold text-slate-900">{lead.name}</h3>
-          <div className="flex items-center text-slate-500 mt-1 text-sm">
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-white dark:text-white">{lead.name}</h3>
+          <div className="flex items-center text-slate-500 dark:text-slate-400 dark:text-slate-400 mt-1 text-sm">
             <Building2 className="w-4 h-4 mr-1.5" />
             {lead.company}
           </div>
@@ -25,15 +25,15 @@ export default function LeadCard({ lead, onEdit, onDelete }) {
         <StatusBadge status={lead.status} />
       </div>
 
-      <div className="space-y-2 mt-auto pt-4 border-t border-slate-100 text-sm text-slate-600">
+      <div className="space-y-2 mt-auto pt-4 border-t border-slate-100 dark:border-slate-800 dark:border-slate-800/80 text-sm text-slate-600 dark:text-slate-300 dark:text-slate-300">
         <div className="flex items-center">
-          <Mail className="w-4 h-4 mr-2 text-slate-400" />
-          <a href={`mailto:${lead.email}`} className="hover:text-blue-600 truncate">{lead.email}</a>
+          <Mail className="w-4 h-4 mr-2 text-slate-400 dark:text-slate-500" />
+          <a href={`mailto:${lead.email}`} className="hover:text-blue-600 dark:hover:text-blue-400 truncate">{lead.email}</a>
         </div>
         {lead.phone && (
           <div className="flex items-center">
-            <Phone className="w-4 h-4 mr-2 text-slate-400" />
-            <a href={`tel:${lead.phone}`} className="hover:text-blue-600">{lead.phone}</a>
+            <Phone className="w-4 h-4 mr-2 text-slate-400 dark:text-slate-500" />
+            <a href={`tel:${lead.phone}`} className="hover:text-blue-600 dark:hover:text-blue-400">{lead.phone}</a>
           </div>
         )}
       </div>
@@ -42,14 +42,14 @@ export default function LeadCard({ lead, onEdit, onDelete }) {
         <button
           onClick={() => onEdit(lead)}
           aria-label={`Edit ${lead.name}`}
-          className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+          className="p-2 text-slate-400 dark:text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/30 rounded-lg transition-colors cursor-pointer"
         >
           <Edit2 className="w-4 h-4" />
         </button>
         <button
           onClick={() => onDelete(lead.id)}
           aria-label={`Delete ${lead.name}`}
-          className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+          className="p-2 text-slate-400 dark:text-slate-500 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-lg transition-colors cursor-pointer"
         >
           <Trash2 className="w-4 h-4" />
         </button>

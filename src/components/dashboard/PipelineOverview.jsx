@@ -23,12 +23,12 @@ export default function PipelineOverview({ leads = [] }) {
   ];
 
   return (
-    <div className="bg-white rounded-xl shadow-sm p-6 border border-slate-100">
-      <h3 className="text-lg font-semibold text-slate-900 mb-4">Pipeline Overview</h3>
+    <div className="bg-white dark:bg-slate-800 dark:bg-slate-900 rounded-xl shadow-sm p-6 border border-slate-100 dark:border-slate-800 dark:border-slate-800/80 transition-colors duration-200">
+      <h3 className="text-lg font-semibold text-slate-900 dark:text-white dark:text-white mb-4">Pipeline Overview</h3>
       
       {totalLeads > 0 ? (
         <div className="space-y-4">
-          <div className="h-4 flex rounded-full overflow-hidden w-full bg-slate-100">
+          <div className="h-4 flex rounded-full overflow-hidden w-full bg-slate-100 dark:bg-slate-800">
             {statuses.map(status => {
               const count = statusCounts[status.key] || 0;
               const percentage = (count / totalLeads) * 100;
@@ -48,8 +48,8 @@ export default function PipelineOverview({ leads = [] }) {
               return (
                 <div key={status.key} className="flex items-center gap-2">
                   <div className={`w-3 h-3 rounded-full ${status.color}`}></div>
-                  <span className="text-sm text-slate-600">
-                    {status.label} <span className="font-medium text-slate-900">({count})</span>
+                  <span className="text-sm text-slate-600 dark:text-slate-300 dark:text-slate-400">
+                    {status.label} <span className="font-medium text-slate-900 dark:text-white dark:text-slate-200">({count})</span>
                   </span>
                 </div>
               );
@@ -57,7 +57,7 @@ export default function PipelineOverview({ leads = [] }) {
           </div>
         </div>
       ) : (
-        <p className="text-slate-500 text-sm">No pipeline data available.</p>
+        <p className="text-slate-500 dark:text-slate-400 dark:text-slate-400 text-sm">No pipeline data available.</p>
       )}
     </div>
   );
