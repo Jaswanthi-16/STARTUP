@@ -11,6 +11,7 @@ import { sampleLeads } from '../data/sampleLeads';
  * @property {string} phone - Phone number
  * @property {'New' | 'Contacted' | 'Meeting Scheduled' | 'Proposal Sent' | 'Won' | 'Lost'} status - Current status in the pipeline
  * @property {'Website' | 'Referral' | 'LinkedIn' | 'Cold Call' | 'Email Campaign' | 'Other'} source - Where the lead came from
+ * @property {number} value - The monetary value of the lead
  * @property {string} createdAt - ISO date string of when the lead was added
  */
 
@@ -35,6 +36,9 @@ export function LeadProvider({ children }) {
       id: crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(),
       createdAt: new Date().toISOString(),
     };
+    if (newLead.status === 'Won') {
+      newLead.wonAt = new Date().toISOString();
+    }
     setLeads((prev) => [newLead, ...prev]);
   };
 
@@ -45,7 +49,16 @@ export function LeadProvider({ children }) {
    */
   const updateLead = (id, updates) => {
     setLeads((prev) =>
-      prev.map((lead) => (lead.id === id ? { ...lead, ...updates } : lead))
+      prev.map((lead) => {
+        if (lead.id === id) {
+          const updatedLead = { ...lead, ...updates };
+          if (updates.status === 'Won' && lead.status !== 'Won') {
+            updatedLead.wonAt = new Date().toISOString();
+          }
+          return updatedLead;
+        }
+        return lead;
+      })
     );
   };
 

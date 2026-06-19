@@ -2,7 +2,7 @@ import React from 'react';
 import { Zap, TrendingUp } from 'lucide-react';
 import { Card } from '../common/Card';
 
-const SalesVelocityCard = ({ velocity }) => {
+const SalesVelocityCard = ({ velocity, hasWonDeals }) => {
   const formatCurrency = (val) => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(val);
 
   return (
@@ -19,10 +19,14 @@ const SalesVelocityCard = ({ velocity }) => {
       <div className="mt-4">
         <div className="flex items-end justify-between">
           <h4 className="text-3xl font-extrabold">{formatCurrency(velocity)}<span className="text-lg font-medium text-indigo-200">/day</span></h4>
-          <span className="flex items-center text-sm font-semibold text-green-300 bg-white dark:bg-slate-800/10 px-2 py-1 rounded">
-            <TrendingUp className="w-3 h-3 mr-1" />
-            +8%
-          </span>
+          {velocity === 0 ? (
+            <span className="text-xs font-medium text-indigo-200">No active leads</span>
+          ) : (
+            <span className="flex items-center text-sm font-semibold text-green-300 bg-white dark:bg-slate-800/10 px-2 py-1 rounded">
+              <TrendingUp className="w-3 h-3 mr-1" />
+              +8%
+            </span>
+          )}
         </div>
       </div>
     </Card>

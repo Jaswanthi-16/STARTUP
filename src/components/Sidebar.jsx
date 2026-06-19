@@ -87,7 +87,7 @@ const Sidebar = () => {
       </nav>
 
       {/* Tablet & Desktop Sidebar */}
-      <aside className="hidden md:flex flex-col fixed left-0 top-0 h-screen bg-white dark:bg-slate-900 border-r border-slate-100 dark:border-slate-800 shadow-sm transition-all duration-300 md:w-20 lg:w-64 z-30 justify-between">
+      <aside className="hidden md:flex flex-col sticky top-0 h-screen shrink-0 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 transition-all duration-300 md:w-20 lg:w-64 z-30 justify-between">
         <div>
           <div className="h-16 flex items-center justify-center lg:justify-start lg:px-6 border-b border-slate-100 dark:border-slate-800">
             <h2 className="hidden lg:block text-2xl font-bold text-slate-800 dark:text-white">Startup CRM</h2>

@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useLeads } from '../context/LeadContext';
 import * as helpers from '../utils/analyticsHelpers';
 
@@ -43,6 +43,7 @@ export function useAnalytics() {
         lostRate: helpers.getLostRate(filteredLeads),
         salesVelocity: helpers.getSalesVelocity(filteredLeads),
         forecastRevenue: helpers.getForecastRevenue(filteredLeads),
+        wonLeadsCount: filteredLeads.filter(l => l.status === 'Won').length,
       },
       charts: {
         statusDistribution: helpers.getStatusDistribution(filteredLeads),
@@ -56,6 +57,14 @@ export function useAnalytics() {
       }
     };
   }, [filteredLeads]);
+
+  useEffect(() => {
+    console.log('--- Analytics Update ---');
+    console.log('Total Pipeline Value:', analyticsData.kpis.pipelineValue);
+    console.log('Forecast Revenue:', analyticsData.kpis.forecastRevenue);
+    console.log('Won Revenue:', analyticsData.kpis.wonRevenue);
+    console.log('Sales Velocity:', analyticsData.kpis.salesVelocity);
+  }, [analyticsData.kpis]);
 
   return {
     dateRange,

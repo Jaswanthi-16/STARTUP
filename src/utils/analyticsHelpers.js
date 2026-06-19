@@ -259,36 +259,26 @@ export const getFunnelData = (leads = []) => {
   ];
 };
 
-/**
- * Sales Velocity
- * Formula: (Opportunities × Win Rate × Avg Deal Size) ÷ Sales Cycle Length
- * Returns value per day
- */
 export const getSalesVelocity = (leads = []) => {
   if (!leads || leads.length === 0) return 0;
   
-  const opportunities = leads.length; // Total leads could be opportunities
-  const winRate = getConversionRate(leads) / 100; // e.g., 0.28
+  // Changed to include all active leads (not just 'Won') 
+  // so Sales Velocity updates immediately when a new lead is added
+  const activeLeads = leads.filter(l => l.status !== 'Lost');
+  if (activeLeads.length === 0) return 0;
   
-  const wonLeads = leads.filter(l => l.status === 'Won');
-  const avgDealSize = wonLeads.length > 0 
-    ? wonLeads.reduce((sum, l) => sum + Number(l.value || 0), 0) / wonLeads.length 
-    : 0;
-    
-  const salesCycle = getAverageSalesCycle(leads) || 1; // avoid divide by zero
-
-  const velocity = (opportunities * winRate * avgDealSize) / salesCycle;
-  return Math.round(velocity);
+  const totalRevenue = activeLeads.reduce((sum, l) => sum + Number(l.value || 0), 0);
+  
+  return Math.round(totalRevenue / 30);
 };
 
 /**
  * Forecast Revenue
- * Formula: Average Revenue of Last 6 Months
+ * Formula: Total Pipeline Value × 30%
  */
 export const getForecastRevenue = (leads = []) => {
-  const revByMonth = getRevenueByMonth(leads);
-  const totalRev = revByMonth.reduce((sum, m) => sum + m.revenue, 0);
-  return revByMonth.length > 0 ? Math.round(totalRev / revByMonth.length) : 0;
+  const pipelineValue = getPipelineValue(leads);
+  return Math.round(pipelineValue * 0.30);
 };
 
 /**

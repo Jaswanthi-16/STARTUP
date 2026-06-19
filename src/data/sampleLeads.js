@@ -11,6 +11,7 @@ export const sampleLeads = [
     phone: '+91 98765 43210',
     status: 'New',
     source: 'Website',
+    value: 50000,
     createdAt: new Date(Date.now() - 86400000 * 5).toISOString(),
   },
   {
@@ -21,6 +22,7 @@ export const sampleLeads = [
     phone: '+91 91234 56789',
     status: 'New',
     source: 'LinkedIn',
+    value: 120000,
     createdAt: new Date(Date.now() - 86400000 * 3).toISOString(),
   },
   {
@@ -31,6 +33,7 @@ export const sampleLeads = [
     phone: '+91 99887 76655',
     status: 'Contacted',
     source: 'Referral',
+    value: 80000,
     createdAt: new Date(Date.now() - 86400000 * 7).toISOString(),
   },
   {
@@ -41,6 +44,7 @@ export const sampleLeads = [
     phone: '+91 98712 34567',
     status: 'Meeting Scheduled',
     source: 'Email Campaign',
+    value: 200000,
     createdAt: new Date(Date.now() - 86400000 * 10).toISOString(),
   },
   {
@@ -51,6 +55,8 @@ export const sampleLeads = [
     phone: '+91 90123 45678',
     status: 'Won',
     source: 'Cold Call',
+    value: 300000,
+    wonAt: new Date(Date.now() - 86400000 * 2).toISOString(),
     createdAt: new Date(Date.now() - 86400000 * 15).toISOString(),
   },
   {
@@ -61,6 +67,7 @@ export const sampleLeads = [
     phone: '+91 96543 21098',
     status: 'Lost',
     source: 'Other',
+    value: 40000,
     createdAt: new Date(Date.now() - 86400000 * 20).toISOString(),
   }
 ];

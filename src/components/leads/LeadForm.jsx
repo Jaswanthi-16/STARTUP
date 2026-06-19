@@ -20,6 +20,7 @@ export default function LeadForm({ initialData, onSubmit, onCancel }) {
     phone: '',
     status: 'New',
     source: 'Website',
+    value: '',
   });
 
   const [errors, setErrors] = useState({});
@@ -53,7 +54,10 @@ export default function LeadForm({ initialData, onSubmit, onCancel }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      onSubmit(formData);
+      onSubmit({
+        ...formData,
+        value: formData.value === '' ? 10000 : Number(formData.value)
+      });
     }
   };
 
@@ -107,6 +111,19 @@ export default function LeadForm({ initialData, onSubmit, onCancel }) {
           value={formData.phone}
           onChange={handleChange}
           className="mt-1 block w-full rounded-md border border-slate-300 dark:border-slate-600 dark:border-slate-700 px-3 py-2 text-sm focus:border-blue-500 focus:ring-blue-500 dark:focus:border-blue-500 dark:focus:ring-blue-500 dark:bg-slate-800 dark:text-white transition-colors duration-200"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="value" className="block text-sm font-medium text-slate-700 dark:text-slate-200 dark:text-slate-300">Value (₹)</label>
+        <input
+          type="number"
+          id="value"
+          name="value"
+          value={formData.value}
+          onChange={handleChange}
+          className="mt-1 block w-full rounded-md border border-slate-300 dark:border-slate-600 dark:border-slate-700 px-3 py-2 text-sm focus:border-blue-500 focus:ring-blue-500 dark:focus:border-blue-500 dark:focus:ring-blue-500 dark:bg-slate-800 dark:text-white transition-colors duration-200"
+          min="0"
         />
       </div>
 

@@ -90,7 +90,7 @@ const Analytics = () => {
       {/* Bottom Widgets */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mt-4 md:mt-6">
         <ForecastCard forecastRevenue={kpis.forecastRevenue} />
-        <SalesVelocityCard velocity={kpis.salesVelocity} />
+        <SalesVelocityCard velocity={kpis.salesVelocity} hasWonDeals={kpis.wonLeadsCount > 0} />
       </div>
     </div>
   );

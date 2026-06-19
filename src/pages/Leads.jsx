@@ -1,6 +1,7 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Plus, LayoutGrid, List } from 'lucide-react';
 import toast, { Toaster } from 'react-hot-toast';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import LeadTable from '../components/leads/LeadTable';
 import LeadCard from '../components/leads/LeadCard';
@@ -12,6 +13,8 @@ import { useLeads } from '../context/LeadContext';
 
 export default function Leads() {
   const { leads = [], addLead, updateLead, deleteLead } = useLeads();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedLead, setSelectedLead] = useState(null);
@@ -19,6 +22,14 @@ export default function Leads() {
 
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState('All');
+
+  useEffect(() => {
+    if (location.state?.openAddModal) {
+      setIsModalOpen(true);
+      // Clear the state so it doesn't reopen on reload
+      navigate(location.pathname, { replace: true, state: {} });
+    }
+  }, [location, navigate]);
 
   const filteredLeads = useMemo(() => {
     return leads.filter((lead) => {
