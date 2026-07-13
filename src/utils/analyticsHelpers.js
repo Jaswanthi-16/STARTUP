@@ -215,46 +215,37 @@ export const getLeadSourceStats = (leads = []) => {
 export const getFunnelData = (leads = []) => {
   if (!leads || leads.length === 0) return [];
   
-  // A simplistic funnel: count how many leads reached AT LEAST that stage.
-  // We'll define a hierarchy. If someone is 'Won', they went through 'Proposal', etc.
-  // Based on the prompt: "Show conversion %, Show drop-off %, Show counts"
-  const stageHierarchy = {
-    'New': 1,
-    'Contacted': 2,
-    'Meeting': 3,
-    'Meeting Scheduled': 3,
-    'Proposal': 4,
-    'Proposal Sent': 4,
-    'Won': 5
-  };
-
   const counts = {
     'New': 0,
     'Contacted': 0,
-    'Meeting': 0,
-    'Proposal': 0,
+    'Meeting Scheduled': 0,
+    'Proposal Sent': 0,
     'Won': 0
   };
 
   leads.forEach(lead => {
-    // If a lead has a status that is not in hierarchy (e.g. Lost), we might just count them based on where they dropped off if we knew.
-    // For simplicity, we count their current status and everything below it.
-    // E.g., if status is 'Meeting' (3), we increment New, Contacted, Meeting.
-    const level = stageHierarchy[lead.status] || 1; // Default to 1 if Lost but usually Lost can happen at any stage.
+    if (lead.status === 'Lost') return;
     
-    // Increment counts for this level and all previous levels
-    if (level >= 1) counts['New']++;
-    if (level >= 2) counts['Contacted']++;
-    if (level >= 3) counts['Meeting']++;
-    if (level >= 4) counts['Proposal']++;
-    if (level >= 5) counts['Won']++;
+    counts['New']++;
+    if (['Contacted', 'Meeting Scheduled', 'Meeting', 'Proposal Sent', 'Proposal', 'Won'].includes(lead.status)) {
+      counts['Contacted']++;
+    }
+    if (['Meeting Scheduled', 'Meeting', 'Proposal Sent', 'Proposal', 'Won'].includes(lead.status)) {
+      counts['Meeting Scheduled']++;
+    }
+    if (['Proposal Sent', 'Proposal', 'Won'].includes(lead.status)) {
+      counts['Proposal Sent']++;
+    }
+    if (lead.status === 'Won') {
+      counts['Won']++;
+    }
   });
 
   return [
     { name: 'New', value: counts['New'], fill: "#94A3B8" },
     { name: 'Contacted', value: counts['Contacted'], fill: "#2563EB" },
-    { name: 'Meeting', value: counts['Meeting'], fill: "#F59E0B" },
-    { name: 'Proposal', value: counts['Proposal'], fill: "#7C3AED" },
+    { name: 'Meeting Scheduled', value: counts['Meeting Scheduled'], fill: "#F59E0B" },
+    { name: 'Proposal Sent', value: counts['Proposal Sent'], fill: "#7C3AED" },
     { name: 'Won', value: counts['Won'], fill: "#22C55E" }
   ];
 };
