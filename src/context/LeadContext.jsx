@@ -12,11 +12,11 @@ export function LeadProvider({ children }) {
   const fetchLeads = useCallback(async (params) => {
     setIsLoading(true);
     try {
-      const data = await leadService.getLeads(params);
-      // Depending on your API, leads might be in data, data.data, or data.leads
-      setLeads(data.data || data.leads || data);
-      if (data.pagination) {
-        setPagination(data.pagination);
+      const responseData = await leadService.getLeads(params);
+      const dataPayload = responseData.data || responseData;
+      setLeads(dataPayload.leads || dataPayload || []);
+      if (dataPayload.pagination) {
+        setPagination(dataPayload.pagination);
       }
     } catch (error) {
       toast.error(error.response?.data?.message || 'Failed to fetch leads');
@@ -27,8 +27,10 @@ export function LeadProvider({ children }) {
 
   const addLead = async (leadData) => {
     try {
-      const newLead = await leadService.createLead(leadData);
-      setLeads((prev) => [newLead, ...prev]);
+      const responseData = await leadService.createLead(leadData);
+      // The backend returns the lead object directly in `responseData.data`
+      const newLead = responseData.data?.lead || responseData.data || responseData;
+      setLeads((prev) => [newLead, ...(Array.isArray(prev) ? prev : [])]);
       toast.success('Lead added successfully');
     } catch (error) {
       toast.error(error.response?.data?.message || 'Failed to add lead');
@@ -38,9 +40,11 @@ export function LeadProvider({ children }) {
 
   const updateLead = async (id, updates) => {
     try {
-      const updatedLead = await leadService.updateLead(id, updates);
+      const responseData = await leadService.updateLead(id, updates);
+      // The backend returns the lead object directly in `responseData.data`
+      const updatedLead = responseData.data?.lead || responseData.data || responseData;
       setLeads((prev) =>
-        prev.map((lead) => (lead._id === id || lead.id === id ? updatedLead : lead))
+        (Array.isArray(prev) ? prev : []).map((lead) => (lead._id === id || lead.id === id ? updatedLead : lead))
       );
       toast.success('Lead updated successfully');
     } catch (error) {
@@ -52,7 +56,7 @@ export function LeadProvider({ children }) {
   const deleteLead = async (id) => {
     try {
       await leadService.deleteLead(id);
-      setLeads((prev) => prev.filter((lead) => lead._id !== id && lead.id !== id));
+      setLeads((prev) => (Array.isArray(prev) ? prev : []).filter((lead) => lead._id !== id && lead.id !== id));
       toast.success('Lead deleted successfully');
     } catch (error) {
       toast.error(error.response?.data?.message || 'Failed to delete lead');

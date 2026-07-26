@@ -68,10 +68,10 @@ const generalLimiter = rateLimit({
   message: 'Too many requests, please try again later.'
 });
 
-// Auth rate limit (stricter): 10 requests per 15 minutes
+// Auth rate limit (stricter): 100 requests per 15 minutes during testing
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 10,
+  max: 100,
   message: 'Too many auth attempts.'
 });
 

@@ -47,7 +47,7 @@ export default function LeadCard({ lead, onEdit, onDelete }) {
           <Edit2 className="w-4 h-4" />
         </button>
         <button
-          onClick={() => onDelete(lead.id)}
+          onClick={() => onDelete(lead._id || lead.id)}
           aria-label={`Delete ${lead.name}`}
           className="p-2 text-slate-400 dark:text-slate-500 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-lg transition-colors cursor-pointer"
         >

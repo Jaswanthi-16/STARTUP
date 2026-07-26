@@ -36,7 +36,7 @@ export default function LeadTable({ leads, onEdit, onDelete }) {
         </thead>
         <tbody className="divide-y divide-slate-100 dark:divide-slate-800/80 text-sm">
           {leads.map((lead) => (
-            <tr key={lead.id} className="hover:bg-slate-50 dark:bg-slate-900 dark:hover:bg-slate-800/30 transition-colors">
+            <tr key={lead._id || lead.id} className="hover:bg-slate-50 dark:bg-slate-900 dark:hover:bg-slate-800/30 transition-colors">
               <td className="px-6 py-4 font-medium text-slate-900 dark:text-white dark:text-white">{lead.name}</td>
               <td className="px-6 py-4 text-slate-600 dark:text-slate-300 dark:text-slate-300">{lead.company}</td>
               <td className="px-6 py-4">
@@ -45,7 +45,7 @@ export default function LeadTable({ leads, onEdit, onDelete }) {
               <td className="px-6 py-4 text-slate-600 dark:text-slate-300 dark:text-slate-300">{lead.email}</td>
               <td className="px-6 py-4 text-slate-600 dark:text-slate-300 dark:text-slate-300">{lead.source}</td>
               <td className="px-6 py-4 text-slate-500 dark:text-slate-400 dark:text-slate-400">
-                {new Date(lead.createdAt || lead.dateAdded).toLocaleDateString()}
+                {new Date(lead.createdAt || lead.dateAdded || Date.now()).toLocaleDateString()}
               </td>
               <td className="px-6 py-4 text-right">
                 <div className="flex justify-end gap-2">
@@ -57,7 +57,7 @@ export default function LeadTable({ leads, onEdit, onDelete }) {
                     <Edit2 className="w-4 h-4" />
                   </button>
                   <button
-                    onClick={() => onDelete(lead.id)}
+                    onClick={() => onDelete(lead._id || lead.id)}
                     aria-label={`Delete ${lead.name}`}
                     className="p-1.5 text-slate-400 dark:text-slate-500 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-md transition-colors cursor-pointer"
                   >

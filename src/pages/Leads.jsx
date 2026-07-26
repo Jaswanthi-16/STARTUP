@@ -168,7 +168,7 @@ export default function Leads() {
               <div className="grid gap-4">
                 {filteredLeads.map((lead) => (
                   <LeadCard
-                    key={lead.id}
+                    key={lead._id || lead.id}
                     lead={lead}
                     onEdit={handleOpenModal}
                     onDelete={handleDeleteLead}
@@ -189,7 +189,7 @@ export default function Leads() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {filteredLeads.map((lead) => (
                     <LeadCard
-                      key={lead.id}
+                      key={lead._id || lead.id}
                       lead={lead}
                       onEdit={handleOpenModal}
                       onDelete={handleDeleteLead}
