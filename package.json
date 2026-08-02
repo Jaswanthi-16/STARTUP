@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "server": "node server.js",
     "dev:full": "npx -y concurrently \"node server.js\" \"vite\"",
     "build": "vite build",
