@@ -38,7 +38,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-[80vh]">
+    <div className="flex items-center justify-center w-full p-4">
       <div className="w-full max-w-md p-8 bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-100 dark:border-slate-700">
         <h2 className="text-2xl font-bold text-center mb-6">Log In to CRM</h2>
         <form onSubmit={handleSubmit} className="space-y-4">

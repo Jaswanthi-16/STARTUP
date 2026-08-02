@@ -10,8 +10,8 @@ const authService = {
     return response.data;
   },
   logout: () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('user');
   },
   getProfile: async () => {
     const response = await api.get('/api/auth/profile');

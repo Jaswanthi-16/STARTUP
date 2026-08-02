@@ -7,16 +7,22 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
-    const savedUser = localStorage.getItem('user');
+    const savedUser = sessionStorage.getItem('user');
     try {
       return savedUser ? JSON.parse(savedUser) : null;
     } catch (e) {
       return null;
     }
   });
-  const [token, setToken] = useState(localStorage.getItem('token') || null);
+  const [token, setToken] = useState(sessionStorage.getItem('token') || null);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+
+  // Clear any stale localStorage tokens from previous sessions
+  useEffect(() => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+  }, []);
 
   useEffect(() => {
     const initAuth = async () => {
@@ -25,13 +31,13 @@ export const AuthProvider = ({ children }) => {
           const data = await authService.getProfile();
           const currentUser = data.user || data;
           setUser(currentUser);
-          localStorage.setItem('user', JSON.stringify(currentUser));
+          sessionStorage.setItem('user', JSON.stringify(currentUser));
         } catch (error) {
           console.error('Failed to restore session:', error);
           setToken(null);
           setUser(null);
-          localStorage.removeItem('token');
-          localStorage.removeItem('user');
+          sessionStorage.removeItem('token');
+          sessionStorage.removeItem('user');
           toast.error('Session expired. Please log in again.');
         }
       }
@@ -43,8 +49,8 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       const data = await authService.login(email, password);
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('user', JSON.stringify(data.user));
+      sessionStorage.setItem('token', data.token);
+      sessionStorage.setItem('user', JSON.stringify(data.user));
       setToken(data.token);
       setUser(data.user);
       return data;
@@ -56,8 +62,8 @@ export const AuthProvider = ({ children }) => {
   const register = async (name, email, password) => {
     try {
       const data = await authService.register(name, email, password);
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('user', JSON.stringify(data.user));
+      sessionStorage.setItem('token', data.token);
+      sessionStorage.setItem('user', JSON.stringify(data.user));
       setToken(data.token);
       setUser(data.user);
       return data;
@@ -68,6 +74,8 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     authService.logout();
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('user');
     setToken(null);
     setUser(null);
     navigate('/login');
