@@ -49,28 +49,28 @@ export default function Dashboard() {
             value={totalLeads.toString()}
             icon={Users}
             change={12.5}
-            color="text-blue-600"
+            color="text-blue-500"
           />
           <StatsCard
             title="Conversion Rate"
             value={`${conversionRate}%`}
             icon={TrendingUp}
             change={2.1}
-            color="text-green-600"
+            color="text-green-500"
           />
           <StatsCard
             title="Active Opportunities"
             value={activeOpportunities.toString()}
             icon={Activity}
             change={-5.4}
-            color="text-amber-500"
+            color="text-orange-500"
           />
           <StatsCard
             title="Won Revenue"
             value={formattedRevenue}
             icon={DollarSign}
             change={8.4}
-            color="text-emerald-600"
+            color="text-emerald-500"
           />
         </div>
 

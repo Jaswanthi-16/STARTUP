@@ -20,7 +20,7 @@ const Login = () => {
     setLoading(true);
     
     console.log('🔵 Frontend - Email:', email);
-    console.log('🔵 Frontend - API URL:', import.meta.env.VITE_API_URL || 'http://localhost:5000');
+    console.log('🔵 Frontend - API URL:', import.meta.env.VITE_API_URL || 'Relative URL');
     console.log('🔵 Frontend - Request Body:', { email, password: '***' });
 
     try {

@@ -7,14 +7,145 @@
 @theme {
   --font-roboto: "Roboto", sans-serif;
   
-  --color-primary: #2563EB;
+  --color-primary: #3B82F6;
   --color-success: #22C55E;
   --color-warning: #F59E0B;
   --color-danger: #EF4444;
+  --color-info: #06B6D4;
 
-  --color-background: #F8FAFC;
-  --color-card: #FFFFFF;
+  --color-background: #0F172A;
+  --color-card: #1E293B;
+  --color-border: #334155;
 
-  --color-text-dark: #0F172A;
-  --color-text-gray: #64748B;
+  --color-text-dark: #F8FAFC;
+  --color-text-gray: #94A3B8;
+  
+  /* Overriding standard slate and gray to force premium dark theme values globally */
+  --color-slate-50: #0F172A;
+  --color-slate-100: #1E293B;
+  --color-slate-200: #334155;
+  --color-slate-300: #334155;
+  --color-slate-400: #94A3B8;
+  --color-slate-500: #94A3B8;
+  --color-slate-600: #CBD5E1;
+  --color-slate-700: #CBD5E1;
+  --color-slate-800: #1E293B;
+  --color-slate-900: #0F172A;
+  
+  --color-gray-50: #0F172A;
+  --color-gray-100: #1E293B;
+  --color-gray-200: #334155;
+  --color-gray-300: #334155;
+  --color-gray-400: #94A3B8;
+  --color-gray-500: #94A3B8;
+  --color-gray-600: #CBD5E1;
+  --color-gray-700: #CBD5E1;
+  --color-gray-800: #1E293B;
+  --color-gray-900: #0F172A;
+  
+  --color-white: #1E293B;
+}
+
+/* Global 250ms Transitions */
+*, ::before, ::after {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 250ms !important;
+}
+
+/* Global resets for background and text to fit the premium dark theme */
+body, html, #root {
+  background-color: #0F172A !important;
+  color: #F8FAFC !important;
+}
+
+/* Sidebar Specific Styling */
+aside, 
+.md\:flex.sticky.top-0.h-screen, 
+nav.md\:hidden.fixed.bottom-0.left-0.right-0, 
+div.md\:hidden.fixed.top-0.left-0.right-0, 
+.relative.flex.flex-col.w-64.max-w-\[80\%\].h-full {
+  background-color: #111827 !important;
+  border-color: #334155 !important;
+}
+
+/* Sidebar Title and Text Adjustments */
+aside h2, div.md\:hidden.fixed.top-0 h2 {
+  color: #F8FAFC !important;
+}
+
+/* Active Sidebar links: blue background (#2563EB) with white text */
+.active.bg-blue-50, 
+.active.dark\:bg-blue-900\/40,
+nav a.active {
+  background-color: #2563EB !important;
+  color: #FFFFFF !important;
+  border-left-color: #3B82F6 !important;
+}
+
+/* Hover effects for sidebar links: slightly lighter background */
+nav a:hover:not(.active) {
+  background-color: #1E293B !important;
+  color: #F8FAFC !important;
+}
+
+/* Card Class Overrides */
+.bg-white, .dark\:bg-slate-800, .dark\:bg-slate-900 {
+  background-color: #1E293B !important;
+  border-color: #334155 !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Table styling and alternating row hover effects using subtle dark shades */
+table tr {
+  border-color: #334155 !important;
+}
+table tbody tr:nth-child(even) {
+  background-color: #151F32;
+}
+table tbody tr:hover {
+  background-color: #1E293B !important;
+}
+table th {
+  background-color: #111827 !important;
+  color: #94A3B8 !important;
+  border-bottom: 1px solid #334155 !important;
+}
+
+/* Buttons with Blue Gradient */
+button.bg-blue-600, 
+a.bg-blue-600,
+.bg-blue-600 {
+  background: linear-gradient(90deg, #2563EB, #3B82F6) !important;
+  color: #FFFFFF !important;
+  border: none !important;
+}
+
+button.bg-blue-600:hover, 
+a.bg-blue-600:hover,
+.bg-blue-600:hover,
+.hover\:bg-blue-700:hover {
+  background: linear-gradient(90deg, #3B82F6, #60A5FA) !important; /* Slightly brighter gradient on hover */
+  color: #FFFFFF !important;
+}
+
+/* Inputs, Toggle switches, dropdowns, and modals should follow the same premium dark theme */
+input, select, textarea {
+  background-color: #0F172A !important;
+  border-color: #334155 !important;
+  color: #F8FAFC !important;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: #3B82F6 !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Dialog/Modal Backdrop & Container Overrides */
+.fixed.inset-0.z-50.flex {
+  background-color: rgba(15, 23, 42, 0.8) !important;
+  backdrop-filter: blur(4px);
+}
+.fixed.inset-0.bg-black\/50, .dark\:bg-black\/60 {
+  background-color: rgba(15, 23, 42, 0.8) !important;
 }

@@ -14,11 +14,11 @@ export default function RecentLeads({ leads = [] }) {
 
   const getStatusBadge = (status) => {
     switch (status) {
-      case 'New': return 'bg-blue-50 dark:bg-blue-950/30 text-blue-700 dark:text-blue-400 border-blue-200 dark:border-blue-900/50';
-      case 'Contacted': return 'bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-400 border-amber-200 dark:border-amber-900/50';
-      case 'Qualified': return 'bg-green-50 dark:bg-green-950/30 text-green-700 dark:text-green-400 border-green-200 dark:border-green-900/50';
-      case 'Lost': return 'bg-red-50 dark:bg-red-950/30 text-red-700 dark:text-red-400 border-red-200 dark:border-red-900/50';
-      default: return 'bg-slate-50 dark:bg-slate-900 dark:bg-slate-800/30 text-slate-700 dark:text-slate-200 dark:text-slate-400 border-slate-200 dark:border-slate-700 dark:border-slate-800/50';
+      case 'New': return 'bg-blue-500/10 text-blue-400 border-blue-500/30';
+      case 'Contacted': return 'bg-cyan-500/10 text-cyan-400 border-cyan-500/30';
+      case 'Qualified': return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30';
+      case 'Lost': return 'bg-red-500/10 text-red-400 border-red-500/30';
+      default: return 'bg-slate-500/10 text-slate-400 border-slate-500/30';
     }
   };
 

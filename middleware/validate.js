@@ -11,14 +11,14 @@ export const validate = (validations) => {
 
     // Collects errors
     const errors = validationResult(req);
-    
+
     // If errors exist: return 400
     if (!errors.isEmpty()) {
       const formattedErrors = errors.array().map((err) => ({
         field: err.path,
         message: err.msg,
       }));
-      
+
       return res.status(400).json({
         success: false,
         message: formattedErrors.map(e => e.message).join(', '),
