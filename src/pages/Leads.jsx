@@ -12,7 +12,7 @@ import EmptyState from '../components/common/EmptyState';
 import { useLeads } from '../context/LeadContext';
 
 export default function Leads() {
-  const { leads = [], addLead, updateLead, deleteLead } = useLeads();
+  const { leads = [], addLead, updateLead, deleteLead, fetchLeads } = useLeads();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -22,6 +22,10 @@ export default function Leads() {
 
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState('All');
+
+  useEffect(() => {
+    fetchLeads();
+  }, [fetchLeads]);
 
   useEffect(() => {
     if (location.state?.openAddModal) {
@@ -59,29 +63,30 @@ export default function Leads() {
     setIsModalOpen(false);
   };
 
-  const handleSubmitLead = (leadData) => {
+  const handleSubmitLead = async (leadData) => {
     try {
       if (selectedLead) {
-        updateLead(selectedLead.id, leadData);
-        toast.success('Lead updated successfully');
+        const leadId = selectedLead._id || selectedLead.id;
+        await updateLead(leadId, leadData);
       } else {
-        addLead(leadData);
-        toast.success('Lead created successfully');
+        await addLead(leadData);
       }
 
       handleCloseModal();
     } catch (error) {
-      toast.error('Something went wrong');
-      console.error(error);
+      console.error('Lead submit error:', error);
     }
   };
 
-  const handleDeleteLead = (id) => {
+  const handleDeleteLead = async (id) => {
     if (!id) return;
 
     if (window.confirm('Are you sure you want to delete this lead?')) {
-      deleteLead(id);
-      toast.success('Lead deleted successfully');
+      try {
+        await deleteLead(id);
+      } catch (error) {
+        console.error('Lead delete error:', error);
+      }
     }
   };
 

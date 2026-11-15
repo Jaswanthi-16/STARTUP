@@ -68,6 +68,16 @@ const leadSchema = new mongoose.Schema(
       type: String,
       maxLength: [1000, 'Notes cannot exceed 1000 characters'],
     },
+    /** Deal value in currency */
+    value: {
+      type: Number,
+      default: 0,
+      min: [0, 'Value cannot be negative'],
+    },
+    /** Date when the lead was marked as Won */
+    wonAt: {
+      type: Date,
+    },
     /** The user who owns/created this lead */
     owner: {
       type: mongoose.Schema.Types.ObjectId,

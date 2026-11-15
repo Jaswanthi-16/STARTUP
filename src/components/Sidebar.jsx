@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, Users, BarChart3, Menu, X } from 'lucide-react';
+import { LayoutDashboard, Users, BarChart3, Menu, X, LogOut, User } from 'lucide-react';
 import DarkModeToggle from './common/DarkModeToggle';
+import { useAuth } from '../context/AuthContext';
+import { useLeads } from '../context/LeadContext';
 
 const Sidebar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, logout } = useAuth();
+  const { clearLeads } = useLeads();
+
+  const handleLogout = () => {
+    if (clearLeads) clearLeads();
+    logout();
+  };
 
   // Define navigation links with icons
   const links = [
@@ -60,8 +69,26 @@ const Sidebar = () => {
                 </NavLink>
               ))}
             </nav>
-            <div className="p-4 border-t border-slate-200 dark:border-slate-800">
+            <div className="p-4 border-t border-slate-200 dark:border-slate-800 space-y-3">
+              {user && (
+                <div className="flex items-center gap-3 px-2 py-1">
+                  <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/60 text-blue-700 dark:text-blue-300 flex items-center justify-center font-bold text-sm">
+                    {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold truncate text-slate-800 dark:text-slate-100">{user.name}</p>
+                    <p className="text-xs text-slate-500 truncate">{user.email}</p>
+                  </div>
+                </div>
+              )}
               <DarkModeToggle />
+              <button
+                onClick={handleLogout}
+                className="w-full flex items-center gap-2.5 px-3 py-2 text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-xl transition-colors cursor-pointer"
+              >
+                <LogOut size={18} />
+                <span>Log Out</span>
+              </button>
             </div>
           </div>
         </div>
@@ -114,7 +141,19 @@ const Sidebar = () => {
           </nav>
         </div>
         
-        <div className="p-3 lg:p-6 border-t border-slate-100 dark:border-slate-800">
+        <div className="p-3 lg:p-4 border-t border-slate-100 dark:border-slate-800 space-y-3">
+          {user && (
+            <div className="hidden lg:flex items-center gap-3 px-2 py-1">
+              <div className="w-9 h-9 rounded-full bg-blue-100 dark:bg-blue-900/60 text-blue-700 dark:text-blue-300 flex items-center justify-center font-bold text-sm shrink-0">
+                {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold truncate text-slate-800 dark:text-slate-100">{user.name}</p>
+                <p className="text-xs text-slate-500 truncate">{user.email}</p>
+              </div>
+            </div>
+          )}
+
           <div className="lg:hidden flex justify-center">
             {/* Minimal Dark mode toggle for tablet */}
             <DarkModeToggle minimal />
@@ -122,6 +161,15 @@ const Sidebar = () => {
           <div className="hidden lg:block">
             <DarkModeToggle />
           </div>
+
+          <button
+            onClick={handleLogout}
+            title="Log Out"
+            className="w-full flex items-center justify-center lg:justify-start gap-2.5 px-3 py-2 text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-xl transition-colors cursor-pointer"
+          >
+            <LogOut size={18} />
+            <span className="hidden lg:inline">Log Out</span>
+          </button>
         </div>
       </aside>
     </>

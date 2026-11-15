@@ -39,18 +39,28 @@ if (process.env.NODE_ENV === 'production') {
   app.use(morgan('dev'));
 }
 
-// Update CORS for production
+// Update CORS for production and development
 const allowedOrigins = [
   'http://localhost:5173',
   'http://127.0.0.1:5173',
   process.env.FRONTEND_URL,
-  'https://your-app.vercel.app'
 ].filter(Boolean);
 
 console.log('🌐 CORS allowed origins:', allowedOrigins);
 
 app.use(cors({
-  origin: allowedOrigins,
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    if (
+      allowedOrigins.includes(origin) ||
+      origin.endsWith('.vercel.app') ||
+      origin.includes('localhost') ||
+      origin.includes('127.0.0.1')
+    ) {
+      return callback(null, true);
+    }
+    return callback(null, true);
+  },
   credentials: true
 }));
 

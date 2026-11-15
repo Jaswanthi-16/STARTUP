@@ -3,8 +3,14 @@ import { useLeads } from '../context/LeadContext';
 import * as helpers from '../utils/analyticsHelpers';
 
 export function useAnalytics() {
-  const { leads } = useLeads();
+  const { leads, fetchLeads } = useLeads();
   const [dateRange, setDateRange] = useState('Last 30 Days');
+
+  useEffect(() => {
+    if (fetchLeads) {
+      fetchLeads();
+    }
+  }, [fetchLeads]);
 
   // Filter leads based on selected date range
   const filteredLeads = useMemo(() => {

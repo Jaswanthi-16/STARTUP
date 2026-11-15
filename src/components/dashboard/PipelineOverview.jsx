@@ -16,9 +16,11 @@ export default function PipelineOverview({ leads = [] }) {
   }, {});
 
   const statuses = [
-    { key: 'New', color: 'bg-blue-600', label: 'New' },
-    { key: 'Contacted', color: 'bg-amber-500', label: 'Contacted' },
-    { key: 'Qualified', color: 'bg-green-500', label: 'Qualified' },
+    { key: 'New', color: 'bg-blue-500', label: 'New' },
+    { key: 'Contacted', color: 'bg-cyan-500', label: 'Contacted' },
+    { key: 'Meeting Scheduled', color: 'bg-amber-500', label: 'Meeting' },
+    { key: 'Proposal Sent', color: 'bg-purple-500', label: 'Proposal' },
+    { key: 'Won', color: 'bg-emerald-500', label: 'Won' },
     { key: 'Lost', color: 'bg-red-500', label: 'Lost' }
   ];
 

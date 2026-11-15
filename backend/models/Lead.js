@@ -50,6 +50,14 @@ const leadSchema = new mongoose.Schema(
       type: String,
       maxLength: [1000, 'Notes cannot exceed 1000 characters'],
     },
+    value: {
+      type: Number,
+      default: 0,
+      min: [0, 'Value cannot be negative'],
+    },
+    wonAt: {
+      type: Date,
+    },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',

@@ -1,4 +1,5 @@
 import React from 'react';
+import StatusBadge from '../leads/StatusBadge';
 
 /**
  * RecentLeads component displays a table of the most recently added leads.
@@ -9,18 +10,8 @@ import React from 'react';
  */
 export default function RecentLeads({ leads = [] }) {
   const recentLeads = [...leads]
-    .sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded))
+    .sort((a, b) => new Date(b.createdAt || b.dateAdded || 0) - new Date(a.createdAt || a.dateAdded || 0))
     .slice(0, 5);
-
-  const getStatusBadge = (status) => {
-    switch (status) {
-      case 'New': return 'bg-blue-500/10 text-blue-400 border-blue-500/30';
-      case 'Contacted': return 'bg-cyan-500/10 text-cyan-400 border-cyan-500/30';
-      case 'Qualified': return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30';
-      case 'Lost': return 'bg-red-500/10 text-red-400 border-red-500/30';
-      default: return 'bg-slate-500/10 text-slate-400 border-slate-500/30';
-    }
-  };
 
   return (
     <div className="bg-white dark:bg-slate-800 dark:bg-slate-900 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 dark:border-slate-800/80 overflow-hidden transition-colors duration-200">
@@ -39,17 +30,15 @@ export default function RecentLeads({ leads = [] }) {
           </thead>
           <tbody className="divide-y divide-slate-100 dark:divide-slate-800/80 text-sm">
             {recentLeads.length > 0 ? (
-              recentLeads.map((lead) => (
-                <tr key={lead.id} className="hover:bg-slate-50 dark:bg-slate-900 dark:hover:bg-slate-800/30 transition-colors">
+              recentLeads.map((lead, index) => (
+                <tr key={lead._id || lead.id || index} className="hover:bg-slate-50 dark:bg-slate-900 dark:hover:bg-slate-800/30 transition-colors">
                   <td className="px-6 py-4 font-medium text-slate-900 dark:text-white dark:text-white">{lead.name}</td>
                   <td className="px-6 py-4 text-slate-600 dark:text-slate-300 dark:text-slate-400">{lead.company}</td>
                   <td className="px-6 py-4">
-                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${getStatusBadge(lead.status)}`}>
-                      {lead.status}
-                    </span>
+                    <StatusBadge status={lead.status} />
                   </td>
                   <td className="px-6 py-4 text-slate-500 dark:text-slate-400 dark:text-slate-400">
-                    {new Date(lead.createdAt || lead.dateAdded).toLocaleDateString()}
+                    {new Date(lead.createdAt || lead.dateAdded || Date.now()).toLocaleDateString()}
                   </td>
                 </tr>
               ))

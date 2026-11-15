@@ -82,9 +82,13 @@ export const createLead = async (req, res, next) => {
       owner: req.user._id,
     };
 
+    if (leadData.status === 'Won' && !leadData.wonAt) {
+      leadData.wonAt = new Date();
+    }
+
     const newLead = await Lead.create(leadData);
 
-    return successResponse(res, newLead, 'Lead created successfully', 201);
+    return successResponse(res, { lead: newLead }, 'Lead created successfully', 201);
   } catch (error) {
     next(error);
   }
@@ -101,7 +105,7 @@ export const getLeadById = async (req, res, next) => {
       return errorResponse(res, 'Lead not found', 404);
     }
 
-    return successResponse(res, lead, 'Lead retrieved successfully', 200);
+    return successResponse(res, { lead }, 'Lead retrieved successfully', 200);
   } catch (error) {
     next(error);
   }
@@ -115,6 +119,10 @@ export const updateLead = async (req, res, next) => {
     const updates = { ...req.body };
     delete updates.owner;
 
+    if (updates.status === 'Won' && !updates.wonAt) {
+      updates.wonAt = new Date();
+    }
+
     const lead = await Lead.findOneAndUpdate(
       { _id: req.params.id, owner: req.user._id },
       updates,
@@ -125,7 +133,7 @@ export const updateLead = async (req, res, next) => {
       return errorResponse(res, 'Lead not found', 404);
     }
 
-    return successResponse(res, lead, 'Lead updated successfully', 200);
+    return successResponse(res, { lead }, 'Lead updated successfully', 200);
   } catch (error) {
     next(error);
   }
@@ -137,10 +145,15 @@ export const updateLead = async (req, res, next) => {
 export const updateLeadStatus = async (req, res, next) => {
   try {
     const { status } = req.body;
+    const updates = { status };
+
+    if (status === 'Won') {
+      updates.wonAt = new Date();
+    }
 
     const lead = await Lead.findOneAndUpdate(
       { _id: req.params.id, owner: req.user._id },
-      { status },
+      updates,
       { new: true, runValidators: true }
     );
 
@@ -148,7 +161,7 @@ export const updateLeadStatus = async (req, res, next) => {
       return errorResponse(res, 'Lead not found', 404);
     }
 
-    return successResponse(res, lead, 'Lead status updated successfully', 200);
+    return successResponse(res, { lead }, 'Lead status updated successfully', 200);
   } catch (error) {
     next(error);
   }

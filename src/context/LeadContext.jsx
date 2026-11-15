@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import leadService from '../services/leadService';
 import toast from 'react-hot-toast';
 
@@ -10,19 +10,37 @@ export function LeadProvider({ children }) {
   const [pagination, setPagination] = useState({ page: 1, limit: 10, total: 0 });
 
   const fetchLeads = useCallback(async (params) => {
+    const token = sessionStorage.getItem('token');
+    if (!token) return;
+
     setIsLoading(true);
     try {
       const responseData = await leadService.getLeads(params);
       const dataPayload = responseData.data || responseData;
-      setLeads(dataPayload.leads || dataPayload || []);
+      setLeads(dataPayload.leads || (Array.isArray(dataPayload) ? dataPayload : []));
       if (dataPayload.pagination) {
         setPagination(dataPayload.pagination);
       }
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Failed to fetch leads');
+      // Don't show toast if user is unauthenticated or on login/register
+      if (sessionStorage.getItem('token')) {
+        toast.error(error.response?.data?.message || 'Failed to fetch leads');
+      }
     } finally {
       setIsLoading(false);
     }
+  }, []);
+
+  // Fetch leads automatically on mount if user is logged in
+  useEffect(() => {
+    const token = sessionStorage.getItem('token');
+    if (token) {
+      fetchLeads();
+    }
+  }, [fetchLeads]);
+
+  const clearLeads = useCallback(() => {
+    setLeads([]);
   }, []);
 
   const addLead = async (leadData) => {
@@ -73,6 +91,7 @@ export function LeadProvider({ children }) {
     isLoading,
     pagination,
     fetchLeads,
+    clearLeads,
     addLead,
     updateLead,
     deleteLead,

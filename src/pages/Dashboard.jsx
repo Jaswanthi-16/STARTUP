@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Users, TrendingUp, DollarSign, Activity } from 'lucide-react';
 import StatsCard from '../components/dashboard/StatsCard';
 import PipelineOverview from '../components/dashboard/PipelineOverview';
@@ -12,7 +12,11 @@ import { useLeads } from '../context/LeadContext';
  * @returns {JSX.Element} The Dashboard page component
  */
 export default function Dashboard() {
-  const { leads = [] } = useLeads();
+  const { leads = [], fetchLeads } = useLeads();
+
+  useEffect(() => {
+    fetchLeads();
+  }, [fetchLeads]);
 
   // Dynamic KPI Calculations
   const totalLeads = leads.length;

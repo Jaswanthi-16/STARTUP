@@ -31,6 +31,7 @@ const leadValidation = [
   check('email', 'Please include a valid email').isEmail().normalizeEmail(),
   check('status', 'Invalid status value').optional().isIn(validStatuses),
   check('source', 'Invalid source value').optional().isIn(validSources),
+  check('value', 'Value must be a number').optional().isNumeric(),
 ];
 
 // Validation for updating status only
