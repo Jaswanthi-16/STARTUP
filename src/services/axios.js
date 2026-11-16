@@ -1,7 +1,9 @@
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-const baseURL = import.meta.env.VITE_API_URL || '';
+// In development, use relative URL so Vite proxy forwards /api to backend
+// In production, use VITE_API_URL if configured, or relative for serverless
+const baseURL = import.meta.env.DEV ? '' : (import.meta.env.VITE_API_URL || '');
 
 const instance = axios.create({
   baseURL,
